@@ -11,7 +11,7 @@ The program contains:
 * Calculating with different holdings
 
 
-![Image Login](screenshot/stockSimulation.png "Stock Chart at the end of Simulation (with 1000 USD)")
+![Image StockSimulation](screenshot/stockSimulation.png "Stock Chart at the end of Simulation (with 1000 USD)")
 
 ## Requirements
 This tools are required for the installation:
