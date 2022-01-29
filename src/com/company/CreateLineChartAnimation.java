@@ -3,11 +3,16 @@ package com.company;
 import com.company.data.DataBucket;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -62,8 +67,20 @@ public class CreateLineChartAnimation extends Application {
     //add series to chart
     lineChart.getData().add(series);
 
+
+    //Create a portfolio simulation holding label
+    Label portfolio = new Label();
+
+    BorderPane borderPane = new BorderPane();
+    BorderPane.setAlignment(portfolio, Pos.BOTTOM_CENTER);
+    BorderPane.setMargin(portfolio, new Insets(10,10,10,10));
+    borderPane.setBottom(portfolio);
+    //borderPane.setBottom(portfolio);
+    borderPane.setMargin(lineChart, new Insets(0,0,0,0));
+    borderPane.setCenter(lineChart);
+
     //setup scene
-    Scene scene = new Scene(lineChart, 800, 600);
+    Scene scene = new Scene(borderPane, 800, 600);
     primaryStage.setScene(scene);
 
     //show the stage
@@ -83,6 +100,7 @@ public class CreateLineChartAnimation extends Application {
         //get current time
         //Date now = new Date();
         //put data with current date
+        portfolio.setText("Portfolio Value: " + String.valueOf((stockData.get(i) * simulationBudget)));
         series.getData().add(new XYChart.Data<>(dateData.get(i), (stockData.get(i) * simulationBudget)));
         //if (series.getData().size() > WINDOW_SIZE)
         //series.getData().remove(0);

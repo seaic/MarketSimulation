@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.data.DataBucket;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
@@ -9,6 +11,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +30,8 @@ import static com.company.Main.startBudget;
 public class CreateLineChart extends Application {
   private static final List<Double> stockData = DataBucket.DATA_BUCKET;
   private static final List<String> dateData = DataBucket.DATE_BUCKET;
+  private static String endDate = null;
+  private static double endValue = 0;
   double simulationBudget = startBudget / stockData.get(0); // calculate simulation budget with the actual stock price
 
   public static void main(String[] args, String startBudget) throws IOException {
@@ -51,11 +58,25 @@ public class CreateLineChart extends Application {
     int i = 0;
     for (Double price : stockData) {
       series.getData().add(new XYChart.Data(dateData.get(i), (price * simulationBudget)));
+      endDate = dateData.get(i);
+      endValue = price * simulationBudget;
       i++;
     }
 
+    BorderPane borderPane = new BorderPane();
+
+    //Create a portfolio simulation holding label
+    Label portfolio = new Label();
+    portfolio.setFont(Font.font(25));
+    BorderPane.setAlignment(portfolio, Pos.BOTTOM_CENTER);
+    BorderPane.setMargin(portfolio, new Insets(10,10,10,10));
+    borderPane.setBottom(portfolio);
+
+    borderPane.setCenter(lineChart);
+    portfolio.setText("End Value at " + endDate + " : " + endValue);
+
     //Creates grid for showing Chart
-    Scene scene = new Scene(lineChart, 800, 600);
+    Scene scene = new Scene(borderPane, 800, 600);
     lineChart.getData().add(series);
 
     stage.setScene(scene);
