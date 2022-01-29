@@ -32,17 +32,17 @@ public class FileManager {
         List<String> DATE_BUCKET = DataBucket.DATE_BUCKET;
 
         //Asks User for path to data file
-        System.out.printf("Aktueller Pfad: %s\n", path);
-        System.out.println("> Soll der Aktuelle Pfad verwendet werden ? [Y/n]: ");
+        System.out.printf("Current path: %s\n", path);
+        System.out.println("> Should the current path be used? [Y/n]: ");
         String yesOrNo = in.nextLine().toLowerCase();
 
         //If user input is n, user gets asked for new input
         if (yesOrNo.equals("n")) {
-            System.out.println("> Geben Sie bitte den Pfad an unter welchem sich die Daten befinden: ");
+            System.out.println("> Please enter the path under which the data is located: ");
             String path = in.nextLine();
 
             while (!isValidPath(path)) {
-                System.out.println("> Geben Sie bitte einen richtigen Pfad an unter welchem sich die Daten befinden: ");
+                System.out.println("> Please specify a correct path under which the data is located: ");
                 path = in.nextLine();
             }
         }

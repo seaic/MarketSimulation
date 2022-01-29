@@ -17,11 +17,11 @@ public class Main extends Application {
     public static Integer startBudget = 1;
     public static void main(String[] args) throws IOException {
         System.out.println("*".repeat(45));
-        System.out.println("WELCOME TO PredictTheMarket");
+        System.out.println("WELCOME TO MARKET SIMULATION");
         System.out.println("*".repeat(45));
-        System.out.println("Wählen Sie die Darstellung aus:");
-        System.out.println("1) Nur Chart ausgeben");
-        System.out.println("2) Chart als Animation ausgeben");
+        System.out.println("select the illustration:");
+        System.out.println("1) Print chart only");
+        System.out.println("2) Print chart as animation");
         System.out.println("> ");
         String input = in.nextLine();
 
@@ -29,14 +29,14 @@ public class Main extends Application {
         if (input.equals("1") || input.equals("2")) {
             if (!FileManager.readFile()) {
                 System.out.println("*".repeat(45));
-                System.out.println("DATEN KONNTEN NICHT ERFOLGREICH GELESEN WERDEN!");
+                System.out.println("DATA COULD NOT BE READ SUCCESSFULLY!");
                 System.out.println("*".repeat(45));
             }
 
             System.out.println("*".repeat(45));
-            System.out.println("DATEN KONNTEN ERFOLGREICH GELESEN WERDEN!");
+            System.out.println("DATA COULD BE READ SUCCESSFULLY!");
             System.out.println("*".repeat(45));
-            System.out.println("Wähle den Start Betrag für die Simulation aus in USD (Bsp. 1000):");
+            System.out.println("Select the start amount for the simulation in USD (e.g. 1000):");
             System.out.println("> ");
             startBudget = Integer.valueOf(in.nextLine());
 

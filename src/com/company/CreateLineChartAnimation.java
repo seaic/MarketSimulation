@@ -40,12 +40,12 @@ public class CreateLineChartAnimation extends Application {
   //Method to make Chart animation
   @Override
   public void start(Stage primaryStage) throws Exception {
-    primaryStage.setTitle("PredictTheMarket");
+    primaryStage.setTitle("Market Simulation");
 
     //defining the axes
     final CategoryAxis xAxis = new CategoryAxis(); // we are gonna plot against time
     final NumberAxis yAxis = new NumberAxis();
-    xAxis.setLabel("Time");
+    xAxis.setLabel("Date");
     xAxis.setAnimated(false); // axis animations are removed
     yAxis.setLabel("Value (CHF)");
     yAxis.setAnimated(false); // axis animations are removed

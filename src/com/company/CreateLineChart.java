@@ -2,11 +2,13 @@ package com.company;
 
 import com.company.data.DataBucket;
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -32,7 +34,7 @@ public class CreateLineChart extends Application {
   //Method to start creating the Line Chart
   @Override
   public void start(Stage stage) {
-    stage.setTitle("PredictTheMarket");
+    stage.setTitle("Market Simulation");
     final CategoryAxis xAxis = new CategoryAxis();
     final NumberAxis yAxis = new NumberAxis();
     xAxis.setLabel("Month");
