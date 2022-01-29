@@ -1,6 +1,8 @@
 #Market Simulation
 Create historical stock market simulation.
 
+THIS PROJECT IS MADE FOR SCHOOL!
+
 ## Overview
 Material designed for Java.
 Tested with openjdk-17 and IntelliJ IDEA 2021.3.1
@@ -45,7 +47,7 @@ For Contribution please use the Github functions:
 * Send a [pull request](https://www.github.com/seaic/MarketSimulation/pulls) with your changes
 
 ## Releases
-Need a stable release? You can find them at [releases](https://www.github.com/seaic/cmshrcompass.git)
+Need a stable release? You can find them at [releases](https://github.com/seaic/MarketSimulation.git)
 
 ## Links
 The tutorial is composed of the following tutorials:
