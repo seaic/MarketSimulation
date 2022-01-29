@@ -1,4 +1,4 @@
-#Market Simulation
+# Market Simulation
 Create historical stock market simulation.
 
 THIS PROJECT IS MADE FOR SCHOOL!
