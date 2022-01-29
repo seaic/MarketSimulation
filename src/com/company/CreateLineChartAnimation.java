@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.data.DataBucket;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -10,17 +11,27 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.beans.EventHandler;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import static com.company.Main.startBudget;
@@ -70,14 +81,38 @@ public class CreateLineChartAnimation extends Application {
 
     //Create a portfolio simulation holding label
     Label portfolio = new Label();
+    portfolio.setFont(Font.font(20));
 
     BorderPane borderPane = new BorderPane();
     BorderPane.setAlignment(portfolio, Pos.BOTTOM_CENTER);
     BorderPane.setMargin(portfolio, new Insets(10,10,10,10));
     borderPane.setBottom(portfolio);
-    //borderPane.setBottom(portfolio);
+
     borderPane.setMargin(lineChart, new Insets(0,0,0,0));
     borderPane.setCenter(lineChart);
+
+    //create a exit button
+    Button exit = new Button("Exit");
+    exit.setOnAction(value -> {
+      Platform.exit();
+    });
+    borderPane.setRight(exit);
+
+    //create a stop button
+    Button stop = new Button("Stop");
+    stop.setOnAction(value -> {
+      scheduledExecutorService.shutdownNow();
+    });
+    VBox right = new VBox();
+    right.getChildren().addAll(stop, exit);
+    borderPane.setRight(right);
+
+    //create a start button
+    //Button start = new Button("Start");
+    //start.setOnAction(value -> {
+      //scheduledExecutorService..;
+    //});
+    //borderPane.setLeft(start);
 
     //setup scene
     Scene scene = new Scene(borderPane, 800, 600);
@@ -100,7 +135,13 @@ public class CreateLineChartAnimation extends Application {
         //get current time
         //Date now = new Date();
         //put data with current date
-        portfolio.setText("Portfolio Value: " + String.valueOf((stockData.get(i) * simulationBudget)));
+
+        //Convert double Value to two decimal precision
+        Double portfolioValue = stockData.get(i) * simulationBudget;
+        Double truncatedDouble = BigDecimal.valueOf(portfolioValue).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
+        // Output the data
+        portfolio.setText("Portfolio Value: " + String.valueOf(truncatedDouble) + " USD");
         series.getData().add(new XYChart.Data<>(dateData.get(i), (stockData.get(i) * simulationBudget)));
         //if (series.getData().size() > WINDOW_SIZE)
         //series.getData().remove(0);
