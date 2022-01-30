@@ -46,6 +46,8 @@ public class CreateLineChartAnimation extends Application {
   private static final List<String> dateData = DataBucket.DATE_BUCKET;
   private static final List<Double> stockData = DataBucket.DATA_BUCKET;
   double simulationBudget = startBudget / stockData.get(0); // calculate simulation budget with the actual stock price
+  private double portfolioStockNumber = 0;
+  private double budget = 100000;
   private static Integer i = 0;
   private ScheduledExecutorService scheduledExecutorService;
 
@@ -103,8 +105,40 @@ public class CreateLineChartAnimation extends Application {
     stop.setOnAction(value -> {
       scheduledExecutorService.shutdownNow();
     });
+
+    //create portfolio buttons to buy and sell
+    //Create a gameportfolio label
+    Label gamePortfolioLabel = new Label("Portfolio Value");
+    gamePortfolioLabel.setFont(Font.font(15));
+    //BorderPane.setMargin(gamePortfolioLabel, new Insets(10,10,10,500));
+    Label gamePortfolio = new Label();
+    gamePortfolio.setFont(Font.font(20));
+
+    Label portfolioBudgetLabel = new Label("Portfolio cash available");
+    portfolioBudgetLabel.setFont(Font.font(15));
+    //BorderPane.setMargin(portfolioBudgetLabel, new Insets(10,10,10,100));
+    Label portfolioBudget = new Label();
+    portfolioBudget.setFont(Font.font(20));
+
+    //create a buy button
+    Button buy = new Button("Buy 10k");
+    borderPane.setRight(buy);
+
+    //create a sell button
+    Button sell = new Button("Sell 10k");
+
+    // set different boxes for the right format
     VBox right = new VBox();
-    right.getChildren().addAll(stop, exit);
+    right.setSpacing(15);
+    VBox rightPortfolio1 = new VBox(gamePortfolioLabel , gamePortfolio);
+    VBox.setMargin(rightPortfolio1, new Insets(10,0,20,0));
+    VBox rightPortfolio2 = new VBox(portfolioBudgetLabel, portfolioBudget);
+    VBox rightBuyAndSell = new VBox(buy, sell);
+    rightBuyAndSell.setSpacing(15);
+    VBox.setMargin(rightBuyAndSell, new Insets(50,0,0,0));
+
+
+    right.getChildren().addAll(stop, exit, rightBuyAndSell, rightPortfolio1, rightPortfolio2);
     borderPane.setRight(right);
 
     //create a start button
@@ -140,8 +174,31 @@ public class CreateLineChartAnimation extends Application {
         Double portfolioValue = stockData.get(i) * simulationBudget;
         Double truncatedDouble = BigDecimal.valueOf(portfolioValue).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
+        Double simulationPortfolioValue = stockData.get(i) * portfolioStockNumber + budget;
+        Double truncatedDouble2 = BigDecimal.valueOf(simulationPortfolioValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
+
+
+        //gameportfolio actions and print data
+        gamePortfolio.setText(String.valueOf(truncatedDouble2) + " USD");
+        portfolioBudget.setText(String.valueOf(budget) + " USD");
+        buy.setOnAction(value -> {
+          if (budget > 9999){
+            double result = 10000 / stockData.get(i);
+            portfolioStockNumber = portfolioStockNumber + result;
+            budget = budget - 10000;
+          }
+        });
+        sell.setOnAction(value -> {
+          if ((portfolioStockNumber * stockData.get(i)) > 9999){
+            double result = 10000 / stockData.get(i);
+            portfolioStockNumber = portfolioStockNumber - result;
+            budget = budget + 10000;
+          }
+        });
+
+
         // Output the data
-        portfolio.setText("Portfolio Value: " + String.valueOf(truncatedDouble) + " USD");
+        portfolio.setText("Stock Price: " + String.valueOf(truncatedDouble) + " USD");
         series.getData().add(new XYChart.Data<>(dateData.get(i), (stockData.get(i) * simulationBudget)));
         //if (series.getData().size() > WINDOW_SIZE)
         //series.getData().remove(0);
