@@ -108,7 +108,7 @@ public class CreateLineChartAnimation extends Application {
 
     //create portfolio buttons to buy and sell
     //Create a gameportfolio label
-    Label gamePortfolioLabel = new Label("Portfolio Value");
+    Label gamePortfolioLabel = new Label("Portfolio value");
     gamePortfolioLabel.setFont(Font.font(15));
     //BorderPane.setMargin(gamePortfolioLabel, new Insets(10,10,10,500));
     Label gamePortfolio = new Label();
@@ -198,7 +198,7 @@ public class CreateLineChartAnimation extends Application {
 
 
         // Output the data
-        portfolio.setText("Stock Price: " + String.valueOf(truncatedDouble) + " USD");
+        portfolio.setText("Stock price: " + String.valueOf(truncatedDouble) + " USD");
         series.getData().add(new XYChart.Data<>(dateData.get(i), (stockData.get(i) * simulationBudget)));
         //if (series.getData().size() > WINDOW_SIZE)
         //series.getData().remove(0);

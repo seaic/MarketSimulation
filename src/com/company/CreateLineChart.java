@@ -86,7 +86,7 @@ public class CreateLineChart extends Application {
 
     // Change decimale precision to two decimal
     Double truncatedDouble = BigDecimal.valueOf(endValue).setScale(2, RoundingMode.HALF_UP).doubleValue();
-    portfolio.setText("End Value at " + endDate + " : " + truncatedDouble + " USD");
+    portfolio.setText("End value at " + endDate + " : " + truncatedDouble + " USD");
 
     //Creates grid for showing Chart
     Scene scene = new Scene(borderPane, 800, 600);
