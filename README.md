@@ -11,6 +11,7 @@ The program contains:
 * Standard simulation
 * Animated simulation
 * Calculating with different holdings
+* Demo live trading with a 100.000 USD portfolio
 
 
 ![Image StockSimulation](screenshot/stockSimulation.png "Stock Chart at the end of Simulation (with 1000 USD)")
